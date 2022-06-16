@@ -7,4 +7,4 @@
 
 module load plink2
 
-python3 /home/tad368/PheWAS-and-GWAS-Diabetes-Correlation-pipeline/extract.py $1 -i $2 -d
+python3 /home/tad368/PheWAS-and-GWAS-Diabetes-Correlation-pipeline/extract.py -i $1 -d $2 
