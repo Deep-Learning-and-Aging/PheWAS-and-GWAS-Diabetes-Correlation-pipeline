@@ -6,4 +6,7 @@
 #SBATCH -o grabIds_%j.out                    # File to which STDOUT will be written, including job ID (%j)
 #SBATCH -e grabIds_%j.err                    # File to which STDERR will be written, including job ID (%j)
 
-python3 ./make_out_of_sample_pheno_file.py -i $1 -o $2
+python3 ./make_out_of_sample_pheno_file.py -i /home/tad368/PheWAS-and-GWAS-Diabetes-Correlation-pipeline/in_pop_IDs/Abdomen_in_sample_pop_IDs.txt \
+-o /home/tad368/data_dir/pheno/out_of_sample.tab \
+-p /home/tad368/data_dir/pheno/pheno.tab \
+-c /home/tad368/PheWAS-and-GWAS-Diabetes-Correlation-pipeline/data_fields/lab_measures.txt
