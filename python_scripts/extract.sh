@@ -11,14 +11,14 @@ module load plink2
 python3 /home/tad368/PheWAS-and-GWAS-Diabetes-Correlation-pipeline/python_scripts/extract.py \
         -i /home/tad368/PheWAS-and-GWAS-Diabetes-Correlation-pipeline/variants_list/AbdAge_Top_SNPS.tsv \
         -d /home/tad368/data_dir/ \
-        -r /home/tad368/PheWAS-and-GWAS-Diabetes-Correlation-pipeline/pop_IDs/Abdomen_in_sample_pop_IDs.txt
+        -r /home/tad368/PheWAS-and-GWAS-Diabetes-Correlation-pipeline/in_pop_IDs/Abdomen_in_sample_pop_IDs.txt
 
 python3 /home/tad368/PheWAS-and-GWAS-Diabetes-Correlation-pipeline/python_scripts/extract.py \
         -i /home/tad368/PheWAS-and-GWAS-Diabetes-Correlation-pipeline/variants_list/LivAge_Top_SNPS.tsv \
         -d /home/tad368/data_dir/ \
-        -r /home/tad368/PheWAS-and-GWAS-Diabetes-Correlation-pipeline/pop_IDs/Liver_in_sample_pop_IDs.txt
+        -r /home/tad368/PheWAS-and-GWAS-Diabetes-Correlation-pipeline/in_pop_IDs/Liver_in_sample_pop_IDs.txt
 
 python3 /home/tad368/PheWAS-and-GWAS-Diabetes-Correlation-pipeline/python_scripts/extract.py \
         -i /home/tad368/PheWAS-and-GWAS-Diabetes-Correlation-pipeline/variants_list/PancAge_Top_SNPS.tsv \
         -d /home/tad368/data_dir/ \
-        -r /home/tad368/PheWAS-and-GWAS-Diabetes-Correlation-pipeline/pop_IDs/Pancreas_in_sample_pop_IDs.txt
+        -r /home/tad368/PheWAS-and-GWAS-Diabetes-Correlation-pipeline/in_pop_IDs/Pancreas_in_sample_pop_IDs.txt
