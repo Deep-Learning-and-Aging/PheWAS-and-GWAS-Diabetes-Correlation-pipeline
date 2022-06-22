@@ -10,21 +10,22 @@ def main():
     parser.add_argument('-p', '--pheno', help='Phenotype file', required=True)
     parser.add_argument('-o', '--output', help='Output file', required=True)
     parser.add_argument('-c', '--columns', help='Columns to keep', required=True)
+    parser.add_argument('-v', '--covariates', type = int, nargs='+', default = [], help='Covariates to keep', required=False)
     args = parser.parse_args()
 
     input_file = args.input # input file of in-sample individuals
     output_file = args.output # out of sample individuals
     pheno_file = args.pheno # phenotype file
     columns = args.columns # file of columns to keep
+    covariates = args.covariates # list of covariates to keep
 
     in_sample_IDs = pd.read_csv(input_file, sep='\t', header=None).iloc[:,0].tolist()
 
     index = 0
 
     # these are the only data fields we will need for PheWAS
-    data_fields = sorted(pd.read_csv(columns, header=None, index_col = False).iloc[:,0].tolist())
+    data_fields = sorted(pd.read_csv(columns, header=None, index_col = False).iloc[:,0].tolist() + covariates)
     exact_col_names = []
-
     # open file to write the IIDs to
     with open(output_file, "w") as data_file:
         
@@ -48,7 +49,8 @@ def main():
                 
                     #ensure columns are unique
                     exact_col_names = ['f.eid'] + list(dict.fromkeys(exact_col_names))
-
+                    print(exact_col_names)
+                    exit()
                 # we only need to keep the phenotypes we want to run the PheWAS on
                 chunk = chunk[exact_col_names]
 
