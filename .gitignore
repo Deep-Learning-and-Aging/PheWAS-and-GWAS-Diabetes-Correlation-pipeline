@@ -2,3 +2,4 @@ temp*
 *.err
 *.out
 pheno_headers.txt
+__pycache__
