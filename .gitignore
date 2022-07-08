@@ -3,3 +3,4 @@ temp*
 *.out
 pheno_headers.txt
 __pycache__
+r_scripts
