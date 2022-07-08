@@ -177,7 +177,7 @@ def make_out_of_sample_pheno_file(sample_files, pheno_file, data_fields, cov, ke
             index += 1
 
     for file in sample_files:
-        # write the IIDs to a file
+        # write the subsetted phenotype files to a file
         predictor_dict[file].to_csv(out_dir + '/' + os.path.basename(file).split('_')[0] + '_subsetted_pheno.tab', sep='\t', header=True, index=False)
 
     return predictor_dict, pheno_fields
