@@ -148,10 +148,10 @@ def run_phewas(phenotypes, genotypes, non_cov_pheno_list, reg, covariates = None
 			phenos_to_drop.append(phenotype_i.name)
 			continue
 
-		# to prevent false positives, only run regressions if more than phe_thresh records have positive values
+		# to prevent false positives, only run regressions if more than thresh records have positive values
 		# if our phenotype is a number, but has less than 1000 samples, then we can't do regression
 		if non_nan_samples_num < thresh:
-			print('Phenotype %s dropped - it has %d samples, less than the threshold (%d)' %(phenotype_i.name, non_nan_samples_num, phe_thresh))
+			print('Phenotype %s dropped - it has %d samples, less than the threshold (%d)' %(phenotype_i.name, non_nan_samples_num, thresh))
 			phenos_to_drop.append(phenotype_i.name)
 			continue
 	
