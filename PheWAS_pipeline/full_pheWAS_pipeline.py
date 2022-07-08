@@ -375,7 +375,6 @@ def run_pheWAS(sample_list, pheno_dict, out_dir, raw_dir, data_dir, reg):
                 results.to_csv(results_file, sep='\t', index=False)
 
 def save_top_variants(out_dir, field_dict):
-    # if the output file already exists, delete it
     output = out_dir + '/aggregate_pheWAS_results.tsv'
 
     # add prefix to the output file for the top rated SNPS
