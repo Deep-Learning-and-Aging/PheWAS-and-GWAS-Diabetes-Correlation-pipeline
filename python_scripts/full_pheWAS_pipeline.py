@@ -53,6 +53,52 @@ def grab_data_fields(url, out_dir):
 
     return field_dict
 
+def extract_variants_and_samples(variant_list, sample_IDs, bfiles_dir, geno_dir, threads, memory, keep):
+
+    operation_on_samples = ''
+    if keep:
+        operation_on_samples = '--keep'
+    else:
+        operation_on_samples = '--remove'
+
+    os.system('module load plink2')
+
+    for input_file, sample_file in zip(variant_list, sample_IDs):
+
+        # Determine the age predictor being used
+        age_Predictor = input_file.split('/')[-1].split('.')[0].split('_')[0]
+
+        # read the file of variants
+        variants = pd.read_csv(input_file, sep='\t', header=0)
+        chr = set(variants['CHR'].values)
+        rsIDs = variants['rsID'].values
+
+        temp_file = geno_dir + '/' + age_Predictor + '_temp_rsIDs_file.txt'
+
+        with open(temp_file, 'w+') as f:
+            f.write('\n'.join(rsIDs))
+
+        for i in chr:
+
+            # need to make sure that the directory used only contains bfiles and no other file, and that they all have the same prefix (before extension)
+            file = ""
+            for filename in os.listdir(bfiles_dir):
+                if filename.startswith('chr' + str(i) + '_'): # every file in the directory starts with 'chr#_', where # is the chromosome
+                    file = filename.split('.')[0] # get the file name without the extension
+            
+            command = " ".join(["plink2", "--bfile", bfiles_dir + '/' + file, 
+                            "--extract", temp_file, 
+                            operation_on_samples, sample_file,
+                            "--threads", str(threads),
+                            "--memory", str(memory),
+                            "--make-bed", 
+                            "--out", geno_dir + '/' + age_Predictor + '_' + file])
+
+            os.system('module load plink2 && ' + command)
+            print('chr' + str(i) + ' done')
+
+        os.remove(temp_file)
+
 def extract_ukb_data_fields(col_names, fields_to_keep, file, write_file = False):
     """
     This function takes a list of headers from a phenotype file and a list of fields to keep and returns a list with the UKBB data fields.
@@ -219,52 +265,6 @@ def encode_ethnicity(pheno):
                                     ethnicities['Ethnicity.NA']
     pheno = pheno.join(ethnicities)
     return pheno
-
-def extract_variants_and_samples(variant_list, sample_IDs, bfiles_dir, geno_dir, threads, memory, keep):
-
-    operation_on_samples = ''
-    if keep:
-        operation_on_samples = '--keep'
-    else:
-        operation_on_samples = '--remove'
-
-    os.system('module load plink2')
-
-    for input_file, sample_file in zip(variant_list, sample_IDs):
-
-        # Determine the age predictor being used
-        age_Predictor = input_file.split('/')[-1].split('.')[0].split('_')[0]
-
-        # read the file of variants
-        variants = pd.read_csv(input_file, sep='\t', header=0)
-        chr = set(variants['CHR'].values)
-        rsIDs = variants['rsID'].values
-
-        temp_file = geno_dir + '/' + age_Predictor + '_temp_rsIDs_file.txt'
-
-        with open(temp_file, 'w+') as f:
-            f.write('\n'.join(rsIDs))
-
-        for i in chr:
-
-            # need to make sure that the directory used only contains bfiles and no other file, and that they all have the same prefix (before extension)
-            file = ""
-            for filename in os.listdir(bfiles_dir):
-                if filename.startswith('chr' + str(i) + '_'): # every file in the directory starts with 'chr#_', where # is the chromosome
-                    file = filename.split('.')[0] # get the file name without the extension
-            
-            command = " ".join(["plink2", "--bfile", bfiles_dir + '/' + file, 
-                            "--extract", temp_file, 
-                            operation_on_samples, sample_file,
-                            "--threads", str(threads),
-                            "--memory", str(memory),
-                            "--make-bed", 
-                            "--out", geno_dir + '/' + age_Predictor + '_' + file])
-
-            os.system('module load plink2 && ' + command)
-            print('chr' + str(i) + ' done')
-
-        os.remove(temp_file)
 
 def fix_covariate_data(pheno, phenotype_fields, sample_list, out_dir, data_fields_dir):
 
