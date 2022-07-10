@@ -72,7 +72,7 @@ def fit_pheno_model(variant, phenotype, covariate_data = None, covariates = None
 		reg_result = [-np.log10(p), p, beta, conf_int, stderr]  # collect results
 
 	except Exception as e:
-		print('ERROR computing regression for phenotype %s' %(phenotype.name))
+		print('ERROR (%s) computing regression for phenotype %s' %(e, phenotype.name))
 		print(data)
 		print(phenotype)
 		print(covariate_data)
