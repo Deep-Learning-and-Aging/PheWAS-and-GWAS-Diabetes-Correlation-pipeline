@@ -34,7 +34,7 @@ def main():
     parser = argparse.ArgumentParser(description='Extract the individuals who had an MRI')
     parser.add_argument('-s', '--sample_files', help='List of samples', action='append', required=True)
     parser.add_argument('-p', '--pheno_file', help='PheWAS phenotype file', required=True)
-    parser.add_argument('-f', '--fields', help='List of data fields to keep', action='append', required=True)
+    parser.add_argument('-f', '--fields', help='List of data fields to keep', required=True)
     parser.add_argument('-c', '--covariates_file', help='Covariate file', required=True)
     parser.add_argument('-o', '--out_dir', help='Directory of where to store the phenotype data', required=True)
     parser.add_argument('-k', '--keep', help ='Whether the samples are in / out of sample', action='store_true')
@@ -44,7 +44,7 @@ def main():
     # Parse the command line arguments
     sample_files = args.sample_files
     pheno_file = args.pheno_file
-    data_fields = args.fields
+    fields = args.fields
     covariates_file = args.covariates_file    
     out_dir = args.out_dir
     keep = args.keep
@@ -54,6 +54,9 @@ def main():
     with open(covariates_file, "r") as f:
         cov = f.read().splitlines()
 
+    # read the data fields into a list
+    with open(fields, "r") as f:
+        data_fields = f.read().splitlines()
 
     data_fields = sorted(data_fields)
     data_fields_with_cov = sorted(data_fields + cov)
@@ -70,7 +73,7 @@ def main():
 
     # create file with data field names
     extract_ukb_data_fields(col_names, data_fields, data_fields_dir + "/ukb_data_fields.txt", True)
-
+    
     # full_data is the dataframe with all the data
     index = 0
     predictor_dict = {}
