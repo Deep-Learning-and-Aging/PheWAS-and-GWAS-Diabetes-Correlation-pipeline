@@ -131,23 +131,25 @@ def main():
         pheno = compute_age(pheno)
         pheno = encode_ethnicity(pheno)
 
-        # set of all covaraites, including the new covariate related columns added
+        # set of all covariates, including the new covariate related columns added
         all_covariates = [col for col in pheno.columns if col not in phenotype_fields + ['f.eid']]
 
-        pheno.to_csv(out_dir + '/' + file_prefix + '_subsetted_pheno_covariates_fixed.tab', index = False, sep = '\t')
-        
         # keep all columns with more than 80% non-nan values
         remove_columns = pheno.loc[:, all_covariates].dropna(thresh = len(pheno[all_covariates])*0.2, axis = 1).columns
         dropped_cols = [col for col in all_covariates if col not in remove_columns]
         cols_to_keep = [col for col in pheno if col not in dropped_cols]
 
-        print(file_prefix, dropped_cols)
+        print(file_prefix, cols_to_keep)
 
         remaining_covariates = [col for col in all_covariates if col not in dropped_cols] 
         # fixed covariate file path
         covariate_file = os.path.join(data_fields_dir, file_prefix + '_fixed_cov_fields.txt')
         with open(covariate_file, 'w') as f:
             f.write('\n'.join(remaining_covariates))
+        
+        pheno = pheno[cols_to_keep].reset_index().drop('column_names', axis = 1)
+
+        pheno.to_csv(out_dir + '/' + file_prefix + '_subsetted_pheno_covariates_fixed.tab', index = False, sep = '\t')
 
 if __name__ == "__main__":
     main()
