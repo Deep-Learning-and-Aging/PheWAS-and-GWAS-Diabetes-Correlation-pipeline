@@ -7,7 +7,7 @@
 #SBATCH -e /home/tad368/PheWAS-and-GWAS-Diabetes-Correlation-pipeline/batch_logs/extract_%j.err   # File to which STDERR will be written, including job ID (%j)
 #SBATCH --mail-type=ALL                                                                           # Type of email notification- BEGIN,END,FAIL,ALL
 
-python3 /home/tad368/PheWAS-and-GWAS-Diabetes-Correlation-pipeline/python_scripts/2_extract_variants_and_samples.py \
+python3 /home/tad368/PheWAS-and-GWAS-Diabetes-Correlation-pipeline/pheWAS_pipeline/2_extract_variants_and_samples.py \
         --variants /home/tad368/PheWAS-and-GWAS-Diabetes-Correlation-pipeline/variants_list/Abdomen/Abdomen_Top_SNPS.tsv \
         --samples /home/tad368/PheWAS-and-GWAS-Diabetes-Correlation-pipeline/in_pop_IDs/Abdomen_in_sample_pop_IDs.txt \
         --variants /home/tad368/PheWAS-and-GWAS-Diabetes-Correlation-pipeline/variants_list/Abdomen/Liver_Top_SNPS.tsv \

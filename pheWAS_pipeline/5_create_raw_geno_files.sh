@@ -6,6 +6,6 @@
 #SBATCH -o /home/tad368/PheWAS-and-GWAS-Diabetes-Correlation-pipeline/batch_logs/create_raw_geno_files_%j.out  # File to which STDOUT will be written, including job ID (%j)
 #SBATCH -e /home/tad368/PheWAS-and-GWAS-Diabetes-Correlation-pipeline/batch_logs/create_raw_geno_files_%j.err  # File to which STDERR will be written, including job ID (%j)
 
-python3 /home/tad368/PheWAS-and-GWAS-Diabetes-Correlation-pipeline/PheWAS_pipeline/5_create_raw_geno_files.py \
+python3 /home/tad368/PheWAS-and-GWAS-Diabetes-Correlation-pipeline/pheWAS_pipeline/5_create_raw_geno_files.py \
         --geno_dir /home/tad368/data_dir/geno \
         --raw_dir /home/tad368/data_dir/raw \
