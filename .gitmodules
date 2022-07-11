@@ -1,3 +1,0 @@
-[submodule "gwas_diabetes_pipeline/ldsc"]
-	path = gwas_diabetes_pipeline/ldsc
-	url = https://github.com/bulik/ldsc.git
