@@ -12,6 +12,6 @@ for i in "${list[@]}"; do
 
     echo "started script for chr${i}_v3_bfile"
 
-    sbatch ./convert_bgen_to_bfile_parallel.sh $i
+    sbatch ./convert_bgen_to_bfile.sh $i
 
 done
