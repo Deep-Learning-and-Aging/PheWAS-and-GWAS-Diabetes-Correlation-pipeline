@@ -10,7 +10,7 @@ def main():
     heartecg_ids = pd.read_csv(heartecg, sep="\t", usecols = ['IID'])
 
     # write the ids to the in_pop_ids directory for each of the three tab files
-    heart_ids.to_csv('~/PheWAS-and-GWAS-Diabetes-Correlation-pipeline/in_pop_IDs/HeartScalar_in_sample_pop_IDs.txt', index=False, header=False)
+    heart_ids.to_csv('~/PheWAS-and-GWAS-Diabetes-Correlation-pipeline/in_pop_IDs/Heart_in_sample_pop_IDs.txt', index=False, header=False)
     heartmri_ids.to_csv('~/PheWAS-and-GWAS-Diabetes-Correlation-pipeline/in_pop_IDs/HeartMRI_in_sample_pop_IDs.txt', index=False, header=False)
     heartecg_ids.to_csv('~/PheWAS-and-GWAS-Diabetes-Correlation-pipeline/in_pop_IDs/HeartECG_in_sample_pop_IDs.txt', index=False, header=False)
 
